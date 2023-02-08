@@ -26,6 +26,7 @@ public class TriangleTest {
         Triangle triangle = new Triangle(a, b, c);
         double rsl = triangle.area();
         double expected = -1;
+
         assertThat(rsl).isCloseTo(expected, offset(0.001));
     }
 }

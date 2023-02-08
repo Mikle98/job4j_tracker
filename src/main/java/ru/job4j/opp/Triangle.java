@@ -35,6 +35,7 @@ public class Triangle {
             double p = semiPerimeter(ab, ac, bc);
             rsl = sqrt(p * (p - ab) * (p - ac) * (p - bc));
         }
+
         return rsl;
     }
 }
