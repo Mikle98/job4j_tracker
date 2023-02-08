@@ -1,9 +1,9 @@
-package job4j.oop;
+package ru.job4j.opp;
 
 import org.junit.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.offset;
-import static org.junit.Assert.*;
 
 public class TriangleTest {
 

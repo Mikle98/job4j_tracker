@@ -1,4 +1,4 @@
-package job4j.oop;
+package ru.job4j.opp;
 
 public class Hare {
     public void tryEat(Ball ball) {
