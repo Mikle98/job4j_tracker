@@ -19,7 +19,7 @@ public class Library {
         book[3] = cleanCode;
         for (int index = 0; index < book.length; index++) {
             Book bk = book[index];
-            if (bk.getName().equals("Clean code")) {
+            if ("Clean code".equals(bk.getName())) {
                 System.out.println(bk.getName() + " " + bk.getCountPage());
             }
         }
