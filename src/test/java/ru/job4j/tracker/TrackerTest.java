@@ -53,19 +53,24 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenTestFindAllCheckNull() {
+    public void whenReplaceItemIsSuccessful() {
         Tracker tracker = new Tracker();
-        Item first = new Item("First");
-        Item second = new Item("Second");
-        Item third = new Item();
-        Item fourth = new Item();
-        Item fifth = new Item("Fifth");
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(third);
-        tracker.add(fourth);
-        tracker.add(fifth);
-        Item result = tracker.findAll()[3];
-        assertThat(result.getName()).isEqualTo(fifth.getName());
+        Item item = new Item("Bug");
+        tracker.add(item);
+        int id = item.getId();
+        Item updateItem = new Item("Bug with description");
+        tracker.replace(id, updateItem);
+        assertThat(tracker.findById(id).getName()).isEqualTo("Bug with description");
+    }
+
+    @Test
+    public void whenReplaceItemIsNotSuccessful() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("Bug");
+        tracker.add(item);
+        Item updateItem = new Item("Bug with description");
+        boolean result = tracker.replace(1000, updateItem);
+        assertThat(tracker.findById(item.getId()).getName()).isEqualTo("Bug");
+        assertThat(result).isFalse();
     }
 }
