@@ -51,4 +51,21 @@ public class TrackerTest {
         Item[] result = tracker.findByName(second.getName());
         assertThat(result[1].getName()).isEqualTo(second.getName());
     }
+
+    @Test
+    public void whenTestFindAllCheckNull() {
+        Tracker tracker = new Tracker();
+        Item first = new Item("First");
+        Item second = new Item("Second");
+        Item third = new Item();
+        Item fourth = new Item();
+        Item fifth = new Item("Fifth");
+        tracker.add(first);
+        tracker.add(second);
+        tracker.add(third);
+        tracker.add(fourth);
+        tracker.add(fifth);
+        Item result = tracker.findAll()[3];
+        assertThat(result.getName()).isEqualTo(fifth.getName());
+    }
 }
