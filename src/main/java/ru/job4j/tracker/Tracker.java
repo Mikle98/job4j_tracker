@@ -33,8 +33,7 @@ public class Tracker {
                 count++;
             }
         }
-        rsl = Arrays.copyOf(rsl, count);
-        return rsl;
+        return Arrays.copyOf(rsl, count);
     }
 
     private int indexOf(int id) {
