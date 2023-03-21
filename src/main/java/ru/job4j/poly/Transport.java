@@ -6,4 +6,6 @@ public interface Transport {
     void passengers(int count);
 
     float refuel(float fuel);
+
 }
+
