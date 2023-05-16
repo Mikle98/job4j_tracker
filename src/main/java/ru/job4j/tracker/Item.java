@@ -51,4 +51,8 @@ public class Item {
                 + ", created=" + created.format(FORMATTER)
                 + '}';
     }
+
+    public static DateTimeFormatter getFormatter() {
+        return FORMATTER;
+    }
 }
