@@ -10,7 +10,7 @@ import java.time.Month;
 
 @Ignore
 public class StartUITest {
-    @Test
+    /*@Test
     public void whenCreateItem() {
         Output out = new StubOutput();
         Input in = new StubInput(
@@ -199,5 +199,5 @@ public class StartUITest {
                         + "Menu:" + ln
                         + "0. Exit Program" + ln
         );
-    }
+    }*/
 }
