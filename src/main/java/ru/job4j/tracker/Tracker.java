@@ -9,10 +9,9 @@ import java.util.Arrays;
 public class Tracker {
     private List<Item> list = new ArrayList<>();
     private int ids = 1;
-    private int size = 0;
 
     public List<Item> add(Item item) {
-        list.add(list.size(), item);
+        list.add(item);
         return list;
     }
 
@@ -22,16 +21,14 @@ public class Tracker {
     }
 
     public List<Item> findAll() {
-        return list;
+        return List.copyOf(list);
     }
 
     public List<Item> findByName(String key) {
         List<Item> rsl = new ArrayList<>();
-        int count = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (key.equals(list.get(i).getName())) {
-                rsl.add(list.get(i));
-                count++;
+        for (Item item : list) {
+            if (key.equals(item.getName())) {
+                rsl.add(item);
             }
         }
         return rsl;
@@ -52,8 +49,7 @@ public class Tracker {
         int index = indexOf(id);
         boolean rsl = index != -1;
         if (rsl) {
-            list.remove(index);
-            list.add(index, updateItem);
+            list.set(index, updateItem);
         }
         return rsl;
     }
