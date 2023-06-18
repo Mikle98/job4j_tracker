@@ -11,10 +11,8 @@ import static java.lang.String.valueOf;
 public class FullSearch {
     public Set<String> extractNumber(List<Task> tasks) {
         Set<String> rsl = new HashSet<>();
-        int priority;
         for (Task task : tasks) {
-            priority = task.getPriority();
-            rsl.add(valueOf(priority));
+            rsl.add(valueOf(task.getPriority()));
         }
         return rsl;
     }
