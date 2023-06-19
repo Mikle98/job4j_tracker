@@ -11,6 +11,7 @@ public class Tracker {
     private int ids = 1;
 
     public List<Item> add(Item item) {
+        item.setId(ids++);
         list.add(item);
         return list;
     }
@@ -49,6 +50,7 @@ public class Tracker {
         int index = indexOf(id);
         boolean rsl = index != -1;
         if (rsl) {
+            updateItem.setId(id);
             list.set(index, updateItem);
         }
         return rsl;
