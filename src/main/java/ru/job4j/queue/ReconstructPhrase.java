@@ -15,16 +15,19 @@ public class ReconstructPhrase {
 
     private String getEvenElements() {
         StringBuilder rsl = new StringBuilder();
-        for (int i = 0; i < this.evenElements.size(); i += 2) {
-            rsl.append(this.evenElements.toArray()[i]);
+        int size = this.evenElements.size();
+        for (int i = 0; i < size; i += 2) {
+            rsl.append(this.evenElements.poll());
+            this.evenElements.poll();
         }
         return rsl.toString();
     }
 
     private String getDescendingElements() {
         StringBuilder rsl = new StringBuilder();
-        for (int i = this.descendingElements.size() - 1; i >= 0; i--) {
-            rsl.append(this.descendingElements.toArray()[i]);
+        int size = this.descendingElements.size();
+        for (int i = 0; i < size; i++) {
+            rsl.append(this.descendingElements.pollLast());
         }
         return rsl.toString();
     }
