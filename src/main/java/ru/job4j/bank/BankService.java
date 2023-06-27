@@ -10,20 +10,14 @@ public class BankService {
     }
 
     public boolean deleteUser(String passport) {
-        User u = null;
-        for (User user : this.users.keySet()) {
-            if (passport.equals(user.getPassport())) {
-                u = user;
-                break;
-            }
-        }
-        return !Objects.isNull(this.users.remove(u));
+        return Objects.nonNull(this.users.remove(new User(passport, "")));
     }
 
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
-        if (!Objects.isNull(user) && !this.users.get(user).contains(account)) {
-            this.users.get(user).add(account);
+        List<Account> userAccounts = this.users.get(user);
+        if (Objects.nonNull(user) && !userAccounts.contains(account)) {
+            userAccounts.add(account);
         }
     }
 
@@ -41,7 +35,7 @@ public class BankService {
     public Account findByRequisite(String passport, String requisite) {
         Account rsl = null;
         User user = findByPassport(passport);
-        if (!Objects.isNull(user)) {
+        if (Objects.nonNull(user)) {
             for (Account account : this.users.get(user)) {
                 if (requisite.equals(account.getRequisite())) {
                     rsl = account;
@@ -57,8 +51,8 @@ public class BankService {
         boolean rsl = false;
         Account srcAccount = findByRequisite(srcPassport, srcRequisite);
         Account destAccount = findByRequisite(destPassport, destRequisite);
-        if (!Objects.isNull(srcAccount)
-            && !Objects.isNull(destAccount)
+        if (Objects.nonNull(srcAccount)
+            && Objects.nonNull(destAccount)
             && srcAccount.getBalance() >= amount) {
             srcAccount.setBalance(
                     srcAccount.getBalance() - amount);
