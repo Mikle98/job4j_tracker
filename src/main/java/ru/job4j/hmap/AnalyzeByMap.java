@@ -63,7 +63,6 @@ public class AnalyzeByMap {
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
-        Label bestSub;
         Map<String, Integer> tempMap = new LinkedHashMap<>();
         List<Label> label = new ArrayList<>();
         for (Pupil pupil : pupils) {
@@ -76,7 +75,6 @@ public class AnalyzeByMap {
             label.add(new Label(key, tempMap.get(key)));
         }
         label.sort(Comparator.naturalOrder());
-        bestSub = label.get(label.size() - 1);
-        return bestSub;
+        return label.get(label.size() - 1);
     }
 }
