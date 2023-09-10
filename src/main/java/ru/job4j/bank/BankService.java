@@ -1,6 +1,7 @@
 package ru.job4j.bank;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Класс работает с пользователями и его счетами
@@ -51,14 +52,10 @@ public class BankService {
      *          не найден, вернется NULL
      */
     public User findByPassport(String passport) {
-        User rsl = null;
-        for (User user : this.users.keySet()) {
-            if (passport.equals(user.getPassport())) {
-                rsl = user;
-                break;
-            }
-        }
-        return rsl;
+        return this.users.keySet().stream()
+                .filter(user -> passport.equals(user.getPassport()))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -69,17 +66,12 @@ public class BankService {
      * @return возвращаем найденный счет, иначе NULL
      */
     public Account findByRequisite(String passport, String requisite) {
-        Account rsl = null;
-        User user = findByPassport(passport);
-        if (Objects.nonNull(user)) {
-            for (Account account : this.users.get(user)) {
-                if (requisite.equals(account.getRequisite())) {
-                    rsl = account;
-                    break;
-                }
-            }
-        }
-        return rsl;
+        return this.users.keySet().stream()
+                .filter(user -> passport.equals(user.getPassport()))
+                .flatMap(user -> this.users.get(user).stream()
+                        .filter(account -> requisite.equals(account.getRequisite())))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
