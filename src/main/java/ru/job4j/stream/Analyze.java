@@ -50,6 +50,5 @@ public class Analyze {
                 .map(map -> new Tuple(map.getKey(), map.getValue()))
                 .max(Comparator.comparing(Tuple::score))
                 .orElse(new Tuple("", 0D));
-        //.collect(Collectors.toList());
     }
 }
