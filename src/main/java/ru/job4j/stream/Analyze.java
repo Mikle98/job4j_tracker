@@ -1,0 +1,55 @@
+package ru.job4j.stream;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class Analyze {
+    public static double averageScore(Stream<Pupil> stream) {
+        return stream.flatMap(streams -> streams.subjects().stream())
+                .mapToInt(Subject::score)
+                .average()
+                .orElse(0D);
+    }
+
+    public static List<Tuple> averageScoreByPupil(Stream<Pupil> stream) {
+        return stream.map(streams -> new Tuple(streams.name(),
+                                        averageScore(Stream.of(streams))))
+                .collect(Collectors.toList());
+    }
+
+    public static List<Tuple> averageScoreBySubject(Stream<Pupil> stream) {
+        return stream.flatMap(streams -> streams.subjects().stream())
+                .collect(Collectors.groupingBy(
+                                obj -> obj.name(),
+                                LinkedHashMap::new,
+                                Collectors.averagingDouble(obj -> obj.score())))
+                .entrySet().stream()
+                .map(map -> new Tuple(map.getKey(), map.getValue()))
+                .collect(Collectors.toList());
+    }
+
+    public static Tuple bestStudent(Stream<Pupil> stream) {
+        return stream.map(streams -> new Tuple(
+                        streams.name(),
+                        Stream.of(streams)
+                                .flatMapToInt(streamSum -> streamSum.subjects().stream()
+                                        .mapToInt(Subject::score))
+                                .sum()))
+                .max(Comparator.comparing(Tuple::score))
+                .orElse(new Tuple("", 0D));
+    }
+
+    public static Tuple bestSubject(Stream<Pupil> stream) {
+        return stream.flatMap(streams -> streams.subjects().stream())
+                .collect(Collectors.groupingBy(
+                        obj -> obj.name(),
+                        LinkedHashMap::new,
+                        Collectors.summingDouble(obj -> obj.score())))
+                .entrySet().stream()
+                .map(map -> new Tuple(map.getKey(), map.getValue()))
+                .max(Comparator.comparing(Tuple::score))
+                .orElse(new Tuple("", 0D));
+        //.collect(Collectors.toList());
+    }
+}
