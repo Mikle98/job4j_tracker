@@ -1,9 +1,10 @@
 package ru.job4j.tracker;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public final class SingleTracker {
-    private Tracker tracker = new Tracker();
+    private Store store = new MemTracker();
     private static SingleTracker singleTracker = null;
 
     private SingleTracker() {
@@ -16,27 +17,27 @@ public final class SingleTracker {
         return singleTracker;
     }
 
-    public List<Item> add(Item item) {
-        return tracker.add(item);
+    public Item add(Item item) throws SQLException {
+        return store.add(item);
     }
 
-    public Item findById(int id) {
-        return tracker.findById(id);
+    public Item findById(int id) throws SQLException {
+        return store.findById(id);
     }
 
-    public List<Item> findByName(String key) {
-        return tracker.findByName(key);
+    public List<Item> findByName(String key) throws SQLException {
+        return store.findByName(key);
     }
 
-    public List<Item> findAll() {
-        return tracker.findAll();
+    public List<Item> findAll() throws SQLException {
+        return store.findAll();
     }
 
-    public boolean replace(int id, Item item) {
-        return tracker.replace(id, item);
+    public boolean replace(int id, Item item) throws SQLException {
+        return store.replace(id, item);
     }
 
-    public boolean delete(int id) {
-        return tracker.delete(id);
+    public boolean delete(int id) throws SQLException {
+        return store.delete(id);
     }
 }

@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ShowAction implements UserAction {
@@ -15,9 +16,9 @@ public class ShowAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store store) throws SQLException {
         out.println("=== Show all items ===");
-        List<Item> items = tracker.findAll();
+        List<Item> items = store.findAll();
         if (items.size() > 0) {
             for (Item item : items) {
                 out.println(item);
