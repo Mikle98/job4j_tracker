@@ -37,7 +37,7 @@ public final class SingleTracker {
         return store.replace(id, item);
     }
 
-    public boolean delete(int id) throws SQLException {
-        return store.delete(id);
+    public void delete(int id) throws SQLException {
+        store.delete(id);
     }
 }

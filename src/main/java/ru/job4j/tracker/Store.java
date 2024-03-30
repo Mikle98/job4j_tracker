@@ -10,7 +10,7 @@ public interface Store extends AutoCloseable {
 
     boolean replace(int id, Item item) throws SQLException;
 
-    boolean delete(int id) throws SQLException;
+    void delete(int id) throws SQLException;
 
     List<Item> findAll() throws SQLException;
 

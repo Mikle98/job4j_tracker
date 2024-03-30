@@ -73,10 +73,9 @@ public class SqlTracker implements Store {
     }
 
     @Override
-    public boolean delete(int id) throws SQLException {
+    public void delete(int id) throws SQLException {
         String sql = String.format("delete from items where id = %s",
                                     id);
-        return statementExecute(sql) == 1;
     }
 
     @Override

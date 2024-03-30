@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class DeleteAction implements UserAction {
     private Output out;
@@ -18,7 +19,7 @@ public class DeleteAction implements UserAction {
     public boolean execute(Input input, Store store) throws SQLException {
         out.println("=== Delete item ===");
         int id = input.askInt("Enter id: ");
-        if (store.delete(id)) {
+        if (!Objects.isNull(store.findById(id))) {
             out.println("Заявка удалена успешно.");
         } else {
             out.println("Ошибка удаления заявки.");
