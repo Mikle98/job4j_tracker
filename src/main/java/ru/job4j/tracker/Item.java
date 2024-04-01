@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Item {
-    private int id;
+    private int id = 1;
     private String name;
 
     private LocalDateTime created = LocalDateTime.now().withNano(0);
