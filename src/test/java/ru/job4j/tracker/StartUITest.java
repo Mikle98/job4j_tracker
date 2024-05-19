@@ -2,7 +2,13 @@ package ru.job4j.tracker;
 
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.lang.StringBuilder;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -41,6 +47,28 @@ public class StartUITest {
     }
 
     @Test
+    public void whenItemWasReplacedSuccessfully() {
+        Output output = new StubOutput();
+        Tracker tracker = new Tracker();
+        tracker.add(new Item("Replaced item"));
+        String replacedName = "New item name";
+        EditAction replaceAction = new EditAction(output);
+
+        Input input = mock(Input.class);
+
+        when(input.askInt(any(String.class))).thenReturn(1);
+        when(input.askStr(any(String.class))).thenReturn(replacedName);
+
+        replaceAction.execute(input, tracker);
+
+        String ln = System.lineSeparator();
+        assertThat(output.toString()).isEqualTo(
+                "=== Edit item ===" + ln
+                        + "Заявка изменена успешно." + ln
+        );
+    }
+
+    @Test
     public void whenDeleteItem() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
@@ -54,6 +82,22 @@ public class StartUITest {
         };
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId())).isNull();
+    }
+
+    @Test
+    public void whenDeleteItemWithMock() {
+        Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        tracker.add(new Item("New Item"));
+        DeleteAction deleteAction = new DeleteAction(out);
+        Input in = mock(Input.class);
+        when(in.askInt(any(String.class))).thenReturn(1);
+        deleteAction.execute(in, tracker);
+        String ln = System.lineSeparator();
+        assertThat(out.toString()).isEqualTo(
+                "=== Delete item ===" + ln
+                        + "Заявка удалена успешно." + ln
+        );
     }
 
     @Test
@@ -127,6 +171,23 @@ public class StartUITest {
     }
 
     @Test
+    public void whenFindIDActionIsSuccessfullyWithMock() {
+        Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = new Item("test1");
+        tracker.add(item);
+        FindIDAction findIDAction = new FindIDAction(out);
+        Input in = mock(Input.class);
+        when(in.askInt(any(String.class))).thenReturn(1);
+        String ln = System.lineSeparator();
+        findIDAction.execute(in, tracker);
+        assertThat(out.toString()).isEqualTo(
+                "=== Find item by id ===" + ln
+                        + item + ln
+        );
+    }
+
+    @Test
     public void whenFindNameActionIsSuccessfully() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
@@ -149,6 +210,23 @@ public class StartUITest {
                         + "Menu:" + ln
                         + "0. Find items by name" + ln
                         + "1. Exit Program" + ln
+        );
+    }
+
+    @Test
+    public void whenFindNameActionIsSuccessfullyWithMock() {
+        Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = new Item("test1");
+        tracker.add(item);
+        Input in = mock(Input.class);
+        when(in.askStr(any(String.class))).thenReturn("test1");
+        FindNameAction findNameAction = new FindNameAction(out);
+        findNameAction.execute(in, tracker);
+        String ln = System.lineSeparator();
+        assertThat(out.toString()).isEqualTo(
+                "=== Find items by name ===" + ln
+                        + item + ln
         );
     }
 
