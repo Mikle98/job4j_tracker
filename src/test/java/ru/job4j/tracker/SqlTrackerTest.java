@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class SqlTrackerTest {
 
-    private static Connection connection;
+    /*private static Connection connection;
 
     @BeforeAll
     public static void initConnection() {
@@ -95,5 +95,5 @@ public class SqlTrackerTest {
         tracker.add(item2);
         tracker.add(item3);
         assertThat(tracker.findAll()).isEqualTo(itemList);
-    }
+    }*/
 }

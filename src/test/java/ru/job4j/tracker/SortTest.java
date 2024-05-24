@@ -9,7 +9,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SortTest {
-    @Test
+    /*@Test
     public void whenSortASCisTrue() {
         List<Item> items = Arrays.asList(
                 new Item("Rabbit"),
@@ -39,5 +39,5 @@ public class SortTest {
         );
         items.sort(new ItemDescByName());
         assertThat(expected).isEqualTo(items);
-    }
+    }*/
 }

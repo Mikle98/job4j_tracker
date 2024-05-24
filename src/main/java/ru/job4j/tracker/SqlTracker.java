@@ -63,7 +63,7 @@ public class SqlTracker implements Store {
     public Item add(Item item) throws SQLException {
         String sql = String.format("insert into items(name, created) values('%s', '%s')",
                                     item.getName(),
-                                    Timestamp.valueOf(item.getDateTime()));
+                                    Timestamp.valueOf(item.getCreated()));
         return statementExecute(sql) == 1 ? item : null;
     }
 
@@ -71,7 +71,7 @@ public class SqlTracker implements Store {
     public boolean replace(int id, Item item) throws SQLException {
         String sql = String.format("update items set name = '%s', created = '%s' where id = %s",
                                     item.getName(),
-                                    Timestamp.valueOf(item.getDateTime()),
+                                    Timestamp.valueOf(item.getCreated()),
                                     id);
         return statementExecute(sql) == 1;
     }
