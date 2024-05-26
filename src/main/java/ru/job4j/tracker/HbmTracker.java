@@ -78,7 +78,9 @@ public class HbmTracker implements Store, AutoCloseable {
             session.getTransaction().begin();
             Query<Item> query = session.createQuery(
                     "FROM Item");
-            listItem.addAll(query.list());
+            for (var item : query.list()) {
+                listItem.add(item);
+            }
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -97,7 +99,9 @@ public class HbmTracker implements Store, AutoCloseable {
             Query<Item> query = session.createQuery(
                     "FROM Item WHERE name = :name")
                     .setParameter("name", key);
-            itemList.addAll(query.list());
+            for (var item : query.list()) {
+                itemList.add(item);
+            }
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -110,20 +114,20 @@ public class HbmTracker implements Store, AutoCloseable {
     @Override
     public Item findById(int id) {
         Session session = sf.openSession();
-        Optional<Item> itemOptional = Optional.empty();
+        Item item = null;
         try {
             session.getTransaction().begin();
-            itemOptional = session.createQuery(
+            Query<Item> query = session.createQuery(
                     "FROM Item WHERE id = :id")
-                    .setParameter("id", id)
-                    .uniqueResultOptional();
+                    .setParameter("id", id);
+            item = query.uniqueResult();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         } finally {
             session.close();
         }
-        return itemOptional.orElse(null);
+        return item;
     }
 
     @Override
